@@ -39,6 +39,7 @@ onMounted(async () => {
       await listTeam('');
     }
 )
+
 //搜索功能
 const searchText = ref('');
 const onSearch = async (val) => {

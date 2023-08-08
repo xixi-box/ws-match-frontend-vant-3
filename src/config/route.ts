@@ -19,9 +19,9 @@ import SearchResultPage from "../pages/SearchResultPage.vue";
 
 const routes = [
     {path: '/', component: Index},
-    {path: '/team', component: Team},
-    {path: '/user', component: UserPage},
-    {path: '/search', component: SearchPage},
+    {path: '/team', title: '找队伍', component: Team},
+    {path: '/user', title:'用户信息',component: UserPage},
+    {path: '/search',title:'找伙伴', component: SearchPage},
     {path: '/user/edit', component: UserEditPage},
     {path: '/user/list', component: SearchResultPage},
     {path: '/user/login', component: UserLoginPage},

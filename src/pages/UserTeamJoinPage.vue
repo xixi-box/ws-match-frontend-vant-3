@@ -8,14 +8,6 @@ import {Toast} from "vant";
 import TeamCardList from "../components/TeamCardList.vue";
 
 const router = useRouter();
-
-const doJoinTeam = () => {
-  router.push({
-    path: "/team/add"
-  })
-}
-
-
 //搜索功能
 const listTeam = async (val = '') => {
   const res = await myAxios.get("/team/list/my/join", {

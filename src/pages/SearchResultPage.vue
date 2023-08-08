@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 
@@ -6,6 +6,7 @@ const route = useRoute()
 const userList = ref([])
 import myAxios from "../plugins/myAxios.ts";
 
+const loading = ref(true);
 import qs from "qs";
 import UserCardList from "../components/UserCardList.vue";
 
@@ -58,7 +59,7 @@ const mockUser = {
 </script>
 
 <template>
-  <user-card-list :user-list="userList"></user-card-list>
+  <user-card-list :user-list="userList" :loading="loading"></user-card-list>
   <van-empty v-if="!userList||userList.length<1" description="搜索结果为空"></van-empty>
 </template>
 

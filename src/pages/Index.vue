@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import {onMounted, ref, watch, watchEffect} from "vue";
+import {ref, watchEffect} from "vue";
 
 
 import myAxios from "../plugins/myAxios.ts";
@@ -70,6 +70,7 @@ watchEffect(() => {
       <van-switch v-model="isMatchMode" size="24"/>
     </template>
   </van-cell>
+
   <user-card-list :user-list="userList" :loading="loading"></user-card-list>
   <van-empty v-if="!userList||userList.length<1" description="数据为空"></van-empty>
 </template>

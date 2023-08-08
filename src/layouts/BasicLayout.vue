@@ -1,5 +1,5 @@
 <template>
-  <van-nav-bar title="标题" left-text="" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+  <van-nav-bar :title="title" left-text="" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
     <template #right>
       <van-icon name="search" size="18"/>
     </template>
@@ -21,11 +21,25 @@
 </template>
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {Toast} from "vant";
+import routes from "../config/route.ts";
 
 
-const router = useRouter()
+const router = useRouter();
+const title = ref('伙伴匹配');
+const route = useRoute();
+const DEFAULT_TITLE = "伙伴匹配";
+router.beforeEach((to, from) => {
+  const toPath = to.path;
+  const route = routes.find((route) => {
+    return toPath == route.path;
+  })
+  title.value = route?.title ?? DEFAULT_TITLE;
+
+})
+
+
 const onClickLeft = () => {
   router.back()
 }

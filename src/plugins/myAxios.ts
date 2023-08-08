@@ -23,6 +23,10 @@ myAxios.interceptors.request.use(function (config) {
 // Add a response interceptor
 myAxios.interceptors.response.use(function (response) {
     console.log('收到响应了', response)
+    if (response?.data?.code === 40100) {
+        const redirectUrl = window.location.href;
+        window.location.href = `/user/login?redirect=${redirectUrl}`;
+    }
     // Do something with response data
     return response.data; //统一的取出data 第一层data 只关注业务的响应
 }, function (error) {

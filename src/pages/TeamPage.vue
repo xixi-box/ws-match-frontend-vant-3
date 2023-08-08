@@ -14,14 +14,33 @@ const doJoinTeam = () => {
     path: "/team/add"
   })
 }
-
-
+//tab栏
+const active = ref('public');
 //搜索功能
-const listTeam = async (val = '') => {
+const searchText = ref('');
+/**
+ * @param
+ * @param name
+ */
+const onTabChange = (name) => {
+  if (name === 'public') {
+    listTeam(searchText.value, 0)
+  } else {
+    listTeam(searchText.value, 2)
+  }
+}
+//搜索功能
+/**
+ *
+ * @param val
+ * @param status
+ */
+const listTeam = async (val = '', status = 0) => {
   const res = await myAxios.get("/team/list", {
     params: {
       searchText: val,
       pageNum: 1,
+      status,
     }
   });
   if (res?.code === 0) {
@@ -39,8 +58,7 @@ onMounted(async () => {
       await listTeam('');
     }
 )
-//搜索功能
-const searchText = ref('');
+
 const onSearch = async (val) => {
   await listTeam(val)
 }
@@ -50,7 +68,12 @@ const onSearch = async (val) => {
 <template>
   <div id="teamPage">
     <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
-    <van-button type="primary" @click=doJoinTeam>创建队伍</van-button>
+    <van-tabs v-model:active="active" @change="onTabChange">
+      <van-tab title="公开" name="public"/>
+      <van-tab title="加密" name="private"/>
+    </van-tabs>
+    <div style="margin-bottom: 16px"/>
+    <van-button type="primary" icon="plus" class="add-button" @click=doJoinTeam></van-button>
     <team-card-list :teamList="teamList">
     </team-card-list>
     <van-empty v-if="!teamList||teamList.length<1" description="搜索结果为空"></van-empty>
